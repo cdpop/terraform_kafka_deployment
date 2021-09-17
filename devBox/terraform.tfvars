@@ -1,7 +1,7 @@
 # Define the AWS credentials
 aws_region=
-aws_secret_key=
-aws_access_key=
+aws_access_key_id=
+aws_secret_access_key=
 
 # Initialize SG 
 key_pair_name=

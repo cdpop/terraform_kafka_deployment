@@ -62,8 +62,8 @@ If you need the above output again, simply run `terraform output`.
 |Property | Documentation| Default | Required? |
 | ------- | ------------ | ------- | --------- |
 | aws_region | AWS region | | yes |
-| aws_access_key_secret | the access key secret for your AWS account | | yes |
-| aws_access_key_id | the access key for your AWS account | | yes |
+| aws_secret_access_key | Specifies the secret key associated with the access key. | | yes |
+| aws_access_key_id | Specifies an AWS access key associated with an IAM user or role. | | yes |
 | security_group_name | Security group name that gets attached to your EC2 instance| | yes |
 |key_pair_name | SSH key name which gets generated locally and uploaded to AWS. | | yes |
 |ami | Amazon image used when deploying EC2, currently only RHEL 7 is supported. | | yes|
