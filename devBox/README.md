@@ -64,7 +64,7 @@ If you need the above output again, simply run `terraform output`.
 | aws_region | AWS region | | yes |
 | aws_secret_access_key | Specifies the secret key associated with the access key. | | yes |
 | aws_access_key_id | Specifies an AWS access key associated with an IAM user or role. | | yes |
-| security_group_name | Security group name that gets attached to your EC2 instance| | yes |
+| security_group_name | Security group name that gets created and attached to your EC2 instance| | yes |
 |key_pair_name | SSH key name which gets generated locally and uploaded to AWS. | | yes |
 |ami | Amazon image used when deploying EC2, currently only RHEL 7 is supported. | | yes|
 |type_instance| Type of EC2 instance https://aws.amazon.com/ec2/instance-types/ | t3a.xlarge | yes |
