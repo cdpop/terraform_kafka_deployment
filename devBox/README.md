@@ -37,10 +37,10 @@ Terraform will deploy a EC2 instance with [cp-demo](https://github.com/confluent
 ## How to run
 1) Modify the `terraform.tfvars` file with the required variables
 2) `terraform init` <- Downloads the necessary dependencies
-3) `'terraform plan'` <- Validate required module variables have been set
-4) `'terraform apply'` <- Deploys EC2 environment with the scripts setup
+3) `terraform plan` <- Validate required module variables have been set
+4) `terraform apply` <- Deploys EC2 environment with the scripts setup
 5) `terraform output` <- Shows the variables such as hostname/ssh command to run.
-6) `'terraform destroy'` <- Destroys the old EC2 instance and cleans up local SSH keys
+6) `terraform destroy` <- Destroys the old EC2 instance and cleans up local SSH keys
 
 ## Useful output from terraform
 After running `terraform apply` you can use the following outputs to connect to your EC2 instance:
