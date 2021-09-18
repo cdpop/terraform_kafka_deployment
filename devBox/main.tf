@@ -30,7 +30,7 @@ module "devBox" {
   ssh_key_path          = pathexpand(module.initialization.ssh_key_path_linux)
   provision_script_src  = "scripts"
   provision_script_dest = "/tmp"
-  script_command        = "/tmp/scripts/exec/${var.shell_script_name}.sh"
+  script_command        = "/tmp/scripts/exec/${var.shell_script_name}"
 }
 
 # Fix .ssh/config file to include proper hostname

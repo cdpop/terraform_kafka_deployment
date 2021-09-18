@@ -69,7 +69,7 @@ If you need the above output again, simply run `terraform output`.
 |ami | Amazon image used when deploying EC2, currently only RHEL 7 is supported. | | yes|
 |type_instance| Type of EC2 instance https://aws.amazon.com/ec2/instance-types/ | t3a.xlarge | yes |
 | ec2_name | Name of your EC2 instance | | yes |
-|shell_script_name| Name of the shell script to get executed from /tmp/scripts/exec | vincents_demo, cp-demo| no |
+|shell_script_name| Name of the shell script to get executed from /tmp/scripts/exec | vincents_demo.sh, `cp-demo.sh [version_arg]`, `cp-demo-with-graffana.sh [version_arg]` | no |
 |user | User used for logging into EC2 and executing scripts. | ec2-user | no|
 
 
@@ -184,8 +184,26 @@ Disconnected from 13.212.46.167 port 22
 2) `kill -9 [ssh-agent]`
 3) rerun ssh command
 
+### Invalid configurations
+```
+terraform init
+There are some problems with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+Error: Error parsing C:\Users\cgoldsmith\Downloads\terraform_kafka_deployment\devBox\main.tf: At 2:12: Unknown token: 2:12 IDENT var.aws_region
+
+```
+
+#### Resolution
+Upgrade terraform to 1.0.7.
+
 ### Windows support
 - Windows integration has not been tested. The logic for generating the SSH keys and deleting them is there however scripts have not been completed. For the time being this will need to be run in WSL. 
+
+
+
 
 ### How to reset a AWS region when my terraform keeps failing
 
@@ -246,5 +264,6 @@ If you do not wish to input the AWS Key/Secret in `terraform.tfvars`, the follow
 - [ ] Enable VPC peering for replicating fruther environments.
 - [ ] Deploy multiple instances for multiple customer replication envs.
 - [ ] Add latency between environments to help replicate customers environments further. 
+- [ ] Add a map where it automatically sets AMI based on 
 
 
