@@ -264,6 +264,8 @@ If you do not wish to input the AWS Key/Secret in `terraform.tfvars`, the follow
 - [ ] Enable VPC peering for replicating fruther environments.
 - [ ] Deploy multiple instances for multiple customer replication envs.
 - [ ] Add latency between environments to help replicate customers environments further. 
-- [ ] Add a map where it automatically sets AMI based on 
+- [ ] Add a map where it automatically sets AMI based on region
+- [ ] Add pumba integration
+
 
 

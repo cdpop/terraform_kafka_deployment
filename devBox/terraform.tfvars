@@ -1,5 +1,5 @@
 # Define the AWS credentials
-aws_region="us-west-2"
+aws_region="us-east-1"
 aws_access_key_id=""
 aws_secret_access_key=""
 
