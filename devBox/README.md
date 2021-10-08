@@ -11,11 +11,11 @@
   - [Architecture](#architecture)
   - [Common issue](#common-issue)
     - [Duplicate EC2 key pair](#duplicate-ec2-key-pair)
-      - [Resolution](#resolution)
+      - [Solution](#Solution)
     - [AWS Key/Secret are misconfigured](#aws-keysecret-are-misconfigured)
-      - [Resolution](#resolution-1)
+      - [Solution](#Solution-1)
     - [Too many authentication failures](#too-many-authentication-failures)
-      - [Resolution](#resolution-2)
+      - [Solution](#Solution-2)
     - [Windows support](#windows-support)
     - [How to reset a AWS region when my terraform keeps failing](#how-to-reset-a-aws-region-when-my-terraform-keeps-failing)
     - [How to reset terraform & AWS](#how-to-reset-terraform--aws)
@@ -105,20 +105,20 @@ The following tested AMIs, instance types, and regions work under the assumption
 | Asia Pacific (Sydney) | ami-0fb87e863747a1610 | ap-southeast-2 | t3a.xlarge | RHEL | yes |
 | Asia Pacific (Tokyo) | ami-0155fdd0956a0c7a0 | ap-northeast-1 | t3a.large | RHEL | no - missing subnet |
 | Asia Pacific (Tokyo) | ami-0155fdd0956a0c7a0 | ap-northeast-1 | t3a.xlarge | RHEL |no - missing subnet |
-| Canada | (Central) | ami-0de9a412a63b8f99d | ca-central-1 | t3a.large | RHEL | yes |
-| Canada | (Central) | ami-0de9a412a63b8f99d | ca-central-1 | t3a.xlarge | RHEL | yes |
-| Europe | (Frankfurt) | ami-0f58468b80db2db66 | eu-central-1 | t3a.large | RHEL | yes |
-| Europe | (Frankfurt) | ami-0f58468b80db2db66 | eu-central-1 | t3a.xlarge | RHEL | yes |
-| Europe | (Ireland) | ami-020e14de09d1866b4 | eu-west-1 | t3a.large | RHEL | yes |
-| Europe | (Ireland) | ami-020e14de09d1866b4 | eu-west-1 | t3a.xlarge | RHEL | yes |
-| Europe | (London) | ami-0e6c172f77df9f9c3 | eu-west-2 | t3a.large | RHEL | yes |
-| Europe | (London) | ami-0e6c172f77df9f9c3 | eu-west-2 | t3a.xlarge | RHEL | yes |
-| Europe | (Milan) | n/a | eu-south-1 | t3a.large | RHEL | no, AMI found for RHEL |
-| Europe | (Milan) | n/a | eu-south-1 | t3a.xlarge | RHEL | no, AMI found for RHEL|
-| Europe | (Paris) | ami-0f4643887b8afe9e2 | eu-west-3 | t3a.large | RHEL | yes |
-| Europe | (Paris) | ami-0f4643887b8afe9e2 | eu-west-3 | t3a.xlarge | RHEL | yes |
-| Europe | (Stockholm) | ami-003fb5b0ea327060c | eu-north-1 | t3a.large | RHEL | no - region instance types are too expensive |
-| Europe | (Stockholm) | ami-003fb5b0ea327060c | eu-north-1 | t3a.xlarge | RHEL | no - region instance types are too expensive |
+| Canada (Central) | ami-0de9a412a63b8f99d | ca-central-1 | t3a.large | RHEL | yes |
+| Canada (Central) | ami-0de9a412a63b8f99d | ca-central-1 | t3a.xlarge | RHEL | yes |
+| Europe (Frankfurt) | ami-0f58468b80db2db66 | eu-central-1 | t3a.large | RHEL | yes |
+| Europe (Frankfurt) | ami-0f58468b80db2db66 | eu-central-1 | t3a.xlarge | RHEL | yes |
+| Europe (Ireland) | ami-020e14de09d1866b4 | eu-west-1 | t3a.large | RHEL | yes |
+| Europe (Ireland) | ami-020e14de09d1866b4 | eu-west-1 | t3a.xlarge | RHEL | yes |
+| Europe (London) | ami-0e6c172f77df9f9c3 | eu-west-2 | t3a.large | RHEL | yes |
+| Europe (London) | ami-0e6c172f77df9f9c3 | eu-west-2 | t3a.xlarge | RHEL | yes |
+| Europe (Milan) | n/a | eu-south-1 | t3a.large | RHEL | no, AMI found for RHEL |
+| Europe (Milan) | n/a | eu-south-1 | t3a.xlarge | RHEL | no, AMI found for RHEL|
+| Europe (Paris) | ami-0f4643887b8afe9e2 | eu-west-3 | t3a.large | RHEL | yes |
+| Europe (Paris) | ami-0f4643887b8afe9e2 | eu-west-3 | t3a.xlarge | RHEL | yes |
+| Europe (Stockholm) | ami-003fb5b0ea327060c | eu-north-1 | t3a.large | RHEL | no - region instance types are too expensive |
+| Europe (Stockholm) | ami-003fb5b0ea327060c | eu-north-1 | t3a.xlarge | RHEL | no - region instance types are too expensive |
 
 
 ## Architecture
@@ -143,7 +143,7 @@ There are four modules which get created:
 │   on module/initialization/main.tf line 30, in resource "aws_key_pair" "deployer":
 │   30: resource "aws_key_pair" "deployer" {
 ```
-#### Resolution
+#### Solution
 The above error indicates there's duplicate ssh keys deployed to EC2.  
 
 1) Run `terraform destroy`
@@ -165,7 +165,7 @@ The above error indicates there's duplicate ssh keys deployed to EC2.
 │    1: provider "aws" {
 │
 ```
-#### Resolution
+#### Solution
 Add missing key/secret for AWS in `terraform.tfvars`
 
 ### Too many authentication failures
@@ -178,7 +178,7 @@ Warning: Permanently added 'ec2-13-212-46-167.ap-southeast-1.compute.amazonaws.c
 Received disconnect from 13.212.46.167 port 22:2: Too many authentication failures
 Disconnected from 13.212.46.167 port 22
 ```
-#### Resolution
+#### Solution
 
 1) `ps -ef | grep ssh`
 2) `kill -9 [ssh-agent]`
@@ -196,7 +196,7 @@ Error: Error parsing C:\Users\cgoldsmith\Downloads\terraform_kafka_deployment\de
 
 ```
 
-#### Resolution
+#### Solution
 Upgrade terraform to 1.0.7.
 
 ### Windows support
@@ -257,6 +257,8 @@ If you do not wish to input the AWS Key/Secret in `terraform.tfvars`, the follow
 
 
 ## To do
+- [ ] Update read me with scripts
+- [ ] Update readme.md table format is bad
 - [ ] Add module for creating EC2 instances and deploying using ansible.
 - [ ] Add module for creating EC2 instances wher K8 is installed and deploying operator
 - [ ] Add module for replicating customers data by passing in a schema, value, and data type.
@@ -266,6 +268,25 @@ If you do not wish to input the AWS Key/Secret in `terraform.tfvars`, the follow
 - [ ] Add latency between environments to help replicate customers environments further. 
 - [ ] Add a map where it automatically sets AMI based on region
 - [ ] Add pumba integration
+- [ ] add variables value check against AMI/type of instance
+- [ ] Undo commented out variables in github
+- [ ] inside readme update how to nuke and remove tfstate as well
+- [ ] check if groups or keys already exist, if they do then skip over the setup
+- [ ] write another module to do clean on this terraform script
 
+- [ ] Fix ~/.ssh/config file because it's not being set up correctly, should be:
+```
+Host ec2-35-84-133-98.us-west-2.compute.amazonaws.com
+        Hostname ec2-35-84-133-98.us-west-2.compute.amazonaws.com
+        User ec2-user
+        IdentityFile /Users/catalin.pop/.ssh/cdpop-ssh
+```
 
-
+```
+│ Error: Error creating Security Group: InvalidGroup.Duplicate: The security group 'conan_devBox_sg' already exists for VPC 'vpc-c9ac16b3'
+│       status code: 400, request id: 5cc9c1ee-6df5-44c5-aa74-0381df0238c1
+│ 
+│   with module.initialization.aws_security_group.all_traffic,
+│   on module/initialization/main.tf line 42, in resource "aws_security_group" "all_traffic":
+│   42: resource "aws_security_group" "all_traffic" {
+```
