@@ -30,20 +30,28 @@
 Terraform will deploy a EC2 instance with [cp-demo](https://github.com/confluentinc/cp-demo) repository or [kafka-docker-playground](https://github.com/vdesabou/kafka-docker-playground).
 
 ## Prerequisites
-- Terraform 1.0.7
+- Terraform 1.0.8
 - Access to AWS account and gather key/secret
 
 
 ## How to run
 1) Modify the `terraform.tfvars` file with the required variables
-2) `terraform init` <- Downloads the necessary dependencies
-3) `terraform plan` <- Validate required module variables have been set
-4) `terraform apply` <- Deploys EC2 environment with the scripts setup
-5) `terraform output` <- Shows the variables such as hostname/ssh command to run.
-6) `terraform destroy` <- Destroys the old EC2 instance and cleans up local SSH keys
+2) `./start.sh` <- Starts EC2 instance and keys
+3) `./stop.sh` <- Destroys the EC2 instances and resources created
+4) `./clean.sh` <- Deletes internal terraform state, this should be done only if `./stop.sh` does not work. If we run this script the [following steps](#how-to-reset-a-aws-region-when-my-terraform-keeps-failing) need to be done as well.
+
+
+### Manually deploying without start/stop script(NOT RECOMMENDED)
+1) Edit `terraform_kafka_deployment/devBox/terraform/terraform.tfvars` with required variables.
+2) `cd terraform_kafka_deployment/devBox/terraform`
+3) Run `terraform init` <- Downloads the necessary dependencies
+4) Run `terraform plan` <- Validate required module variables have been set
+5) Run `terraform apply` <- Deploys EC2 environment with the scripts setup
+6) Run `terraform output` <- Shows the variables such as hostname/ssh command to run.
+7) Run `terraform destroy` <- Destroys the old EC2 instance and cleans up local SSH keys
 
 ## Useful output from terraform
-After running `terraform apply` you can use the following outputs to connect to your EC2 instance:
+After running `./start.sh` you can use the following outputs to connect to your EC2 instance:
 ```
 key_pair_name = "pops_ssh_key"
 public_hostnames = [
@@ -55,7 +63,7 @@ ssh_command = "ssh -i ~/.ssh/pops_ssh_key ec2-user@ec2-XX-XX-XXX-XXX.eu-west-3.c
 ssh_key_path_linux = "~/.ssh/pops_ssh_key"
 ssh_key_path_windows = "~/.ssh/pops_ssh_key"
 ```
-If you need the above output again, simply run `terraform output`.
+If you need the above output again, simply run `terraform output` inside `terraform_kafka_deployment/devBox/terraform`.
 
 ## Variables
 
@@ -146,12 +154,12 @@ There are four modules which get created:
 #### Solution
 The above error indicates there's duplicate ssh keys deployed to EC2.  
 
-1) Run `terraform destroy`
+1) Run `./stop.sh`
 2) Go to AWS UI
 3) Select your region
 4) Select EC2 service
 5) Navigate on the left part `Key Pairs`
-6) Search for your key name(defined as `key_pair_name`)
+6) Search for your key name(defined as `key_pair_name` in your `terraform.tfvars`)
 7) Delete this key and redeploy your instance
 
 ### AWS Key/Secret are misconfigured
@@ -170,13 +178,13 @@ Add missing key/secret for AWS in `terraform.tfvars`
 
 ### Too many authentication failures
 ```
-➜ ssh -i ~/.ssh/pops_ssh_key ec2-user@ec2-13-212-46-167.ap-southeast-1.compute.amazonaws.com
-The authenticity of host 'ec2-13-212-46-167.ap-southeast-1.compute.amazonaws.com (13.212.46.167)' can't be established.
-ECDSA key fingerprint is SHA256:JQrnPJenMd1bFHI9nlO9Jx6XWxGjeWmcQw0FFQE2OS4.
+➜ ssh -i ~/.ssh/pops_ssh_key ec2-user@HOSTNAME
+The authenticity of host 'HOSTNAME (IP_ADDRESS)' can't be established.
+ECDSA key fingerprint is SHA256:......
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added 'ec2-13-212-46-167.ap-southeast-1.compute.amazonaws.com,13.212.46.167' (ECDSA) to the list of known hosts.
-Received disconnect from 13.212.46.167 port 22:2: Too many authentication failures
-Disconnected from 13.212.46.167 port 22
+Warning: Permanently added 'HOSTNAME IP_ADDRESS (ECDSA) to the list of known hosts.
+Received disconnect from IP_ADDRESS port 22:2: Too many authentication failures
+Disconnected from IP_ADDRESS port 22
 ```
 #### Solution
 
@@ -192,12 +200,12 @@ There are some problems with the configuration, described below.
 The Terraform configuration must be valid before initialization so that
 Terraform can determine which modules and providers need to be installed.
 
-Error: Error parsing C:\Users\cgoldsmith\Downloads\terraform_kafka_deployment\devBox\main.tf: At 2:12: Unknown token: 2:12 IDENT var.aws_region
+Error: Error parsing C:\Users\userName\Downloads\terraform_kafka_deployment\devBox\main.tf: At 2:12: Unknown token: 2:12 IDENT var.aws_region
 
 ```
 
 #### Solution
-Upgrade terraform to 1.0.7.
+Upgrade terraform to 1.0.8.
 
 ### Windows support
 - Windows integration has not been tested. The logic for generating the SSH keys and deleting them is there however scripts have not been completed. For the time being this will need to be run in WSL. 
@@ -208,7 +216,7 @@ Upgrade terraform to 1.0.7.
 ### How to reset a AWS region when my terraform keeps failing
 
 
-1) `terraform destroy` <- cleans up local keys
+1) `./stop.sh` <- cleans up local keys
 2) Go to AWS UI
 3) Select your region in the top left corner
 4) Select EC2 as the service
@@ -257,8 +265,6 @@ If you do not wish to input the AWS Key/Secret in `terraform.tfvars`, the follow
 
 
 ## To do
-- [ ] Update read me with scripts
-- [ ] Update readme.md table format is bad
 - [ ] Add module for creating EC2 instances and deploying using ansible.
 - [ ] Add module for creating EC2 instances wher K8 is installed and deploying operator
 - [ ] Add module for replicating customers data by passing in a schema, value, and data type.
