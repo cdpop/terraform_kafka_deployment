@@ -67,6 +67,13 @@ then
     exit
 fi
 
+if [ ! -L ./terraform/scripts/exec/$shell_script_name ]; 
+then 
+    SCRIPTS=$(ls ./terraform/scripts/exec/ | grep ".sh")
+    echo "shell_script_name is not a known script option from "./terraform/scripts/exec/" in terraform.tfvars."
+    echo "This is a required field, known options are $SCRIPTS"
+    exit
+fi
 
 # Check values of variables are valid(TBD)
 # source ${DIR}/../env_check/variables_check.sh
