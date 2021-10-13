@@ -67,7 +67,7 @@ then
     exit
 fi
 
-if [ ! -L ./terraform/scripts/exec/$shell_script_name ]; 
+if [ ! -f "$TERRAFORM_DIR/scripts/exec/$shell_script_name" ];  
 then 
     SCRIPTS=$(ls ./terraform/scripts/exec/ | grep ".sh" | sed 's/^/  /')
     echo "shell_script_name is not a known script option from "./terraform/scripts/exec/" in terraform.tfvars."
