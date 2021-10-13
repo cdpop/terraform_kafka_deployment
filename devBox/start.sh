@@ -69,9 +69,10 @@ fi
 
 if [ ! -L ./terraform/scripts/exec/$shell_script_name ]; 
 then 
-    SCRIPTS=$(ls ./terraform/scripts/exec/ | grep ".sh")
+    SCRIPTS=$(ls ./terraform/scripts/exec/ | grep ".sh" | sed 's/^/  /')
     echo "shell_script_name is not a known script option from "./terraform/scripts/exec/" in terraform.tfvars."
-    echo "This is a required field, known options are $SCRIPTS"
+    echo "This is a required field, known options are below:"
+    echo "$SCRIPTS"
     exit
 fi
 
