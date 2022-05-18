@@ -63,9 +63,6 @@ then
     exit
 fi
 
-# Check values of variables are valid(TBD)
-# source ${DIR}/env_check/variables_check.sh
-
 cp ${DIR}/terraform.tfvars $TERRAFORM_DIR
 
 # Starting terraform
