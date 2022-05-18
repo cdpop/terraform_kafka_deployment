@@ -9,7 +9,7 @@ module "initialization"{
   source  = "./module/initialization"
   key_pair_name = var.key_pair_name
   security_group_name = var.security_group_name
-  
+  owner_email = var.owner_email  
 }
 
 # Deployin EC2 instance
@@ -24,6 +24,7 @@ module "devBox" {
   instances        = 1
   ec2-name         = var.ec2_name
   security_group   = module.initialization.security_group_name
+  owner_email      = var.owner_email
 
   # Install Script
   user                  = var.user
@@ -47,6 +48,5 @@ module "cleanup" {
   public_hostname = module.devBox.ec2_instances[0]
   os = module.initialization.os
   key_pair_name = var.key_pair_name
-  random_string = module.initialization.random_string
-  
+  random_string = module.initialization.random_string  
 }

@@ -35,6 +35,7 @@ resource "aws_instance" "ec2_instances" {
 
   tags = {
     Name = var.ec2-name
+    owner_email = var.owner_email
   }
 
   timeouts {

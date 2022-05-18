@@ -87,3 +87,6 @@ cd terraform
 terraform init
 
 terraform apply -auto-approve
+
+echo "The output of variables have been saved to terraform_deployment_output.log."
+terraform output > ../terraform_deployment_output.log
