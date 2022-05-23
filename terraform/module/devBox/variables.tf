@@ -30,12 +30,16 @@ variable "root_volume_size" {
   description = "Root volume size on the EC2 instance"
 }
 
-
 variable "security_group" {
   type = string
   description = "Security group for EC2 instance"
-  default = "default"
-  
+  default = "default"  
+}
+
+variable "owner_email"{
+    type = string
+    description = "Confluent Email for user. Required for tagging instances otherwise they will auto delete in 12 hours."
+    default = "Auto Delete Enabled"
 }
 
 variable "user" {

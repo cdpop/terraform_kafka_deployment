@@ -75,6 +75,7 @@ resource "aws_security_group" "all_traffic" {
   ]
   tags = {
     Name = "SG from (${data.aws_caller_identity.current.arn})"
+    owner_email = "${var.owner_email}"
   }
 }
 
