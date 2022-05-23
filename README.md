@@ -7,5 +7,6 @@
 **NOTE**
 
 This repository is meant for development purposes only and for POC. 
+Please go into the devBox folder for additional details and instructions.
 
 ---
