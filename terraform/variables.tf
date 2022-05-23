@@ -24,6 +24,11 @@ variable "security_group_name"{
     description = "SG name in AWS"
 }
 
+variable "owner_email"{
+    type = string
+    description = "Confluent Email for user. Required for tagging instances otherwise they will auto delete in 12 hours."
+    default = "Auto Delete Enabled"
+}
 
 variable "ec2_name"{
     type = string
